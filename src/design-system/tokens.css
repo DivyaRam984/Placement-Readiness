@@ -1,0 +1,48 @@
+/**
+ * KodNest Premium Build System — Design Tokens
+ * Calm, intentional, coherent. Max 4 colors. No gradients, no glass, no neon.
+ */
+
+:root {
+  /* ——— Color (4 only) ——— */
+  --kn-bg: #F7F6F3;
+  --kn-text: #111111;
+  --kn-accent: #8B0000;
+  --kn-success: #4A5D4A;
+  --kn-warning: #8B6914;
+
+  /* Semantic aliases */
+  --kn-text-muted: #3d3d3d;
+  --kn-border: #d4d2ce;
+  --kn-border-focus: #8B0000;
+
+  /* ——— Typography ——— */
+  --kn-font-serif: 'Libre Baskerville', Georgia, serif;
+  --kn-font-sans: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --kn-heading-size-1: 2.25rem;
+  --kn-heading-size-2: 1.75rem;
+  --kn-heading-size-3: 1.25rem;
+  --kn-body-size: 1rem;
+  --kn-body-size-lg: 1.125rem;
+  --kn-caption-size: 0.875rem;
+
+  --kn-line-height-tight: 1.35;
+  --kn-line-height-body: 1.65;
+  --kn-line-height-loose: 1.8;
+
+  --kn-text-max-width: 720px;
+
+  /* ——— Spacing (scale only) ——— */
+  --kn-space-1: 8px;
+  --kn-space-2: 16px;
+  --kn-space-3: 24px;
+  --kn-space-4: 40px;
+  --kn-space-5: 64px;
+
+  /* ——— Layout ——— */
+  --kn-workspace-ratio: 70%;
+  --kn-panel-ratio: 30%;
+  --kn-radius: 6px;
+  --kn-transition: 180ms ease-in-out;
+}

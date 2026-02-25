@@ -1,0 +1,145 @@
+/**
+ * KodNest Premium Build System — Global layout
+ * [Top Bar] → [Context Header] → [Workspace + Panel] → [Proof Footer]
+ */
+
+.kn-app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ——— Top Bar ——— */
+.kn-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--kn-space-2) var(--kn-space-4);
+  border-bottom: 1px solid var(--kn-border);
+  background-color: var(--kn-bg);
+  flex-shrink: 0;
+}
+
+.kn-topbar__project {
+  font-family: var(--kn-font-serif);
+  font-size: var(--kn-heading-size-3);
+  font-weight: 700;
+  color: var(--kn-text);
+}
+
+.kn-topbar__progress {
+  font-family: var(--kn-font-sans);
+  font-size: var(--kn-caption-size);
+  color: var(--kn-text-muted);
+}
+
+.kn-topbar__status {
+  /* Badge lives here */
+}
+
+/* ——— Context Header ——— */
+.kn-context-header {
+  padding: var(--kn-space-4) var(--kn-space-4) var(--kn-space-3);
+  border-bottom: 1px solid var(--kn-border);
+  background-color: var(--kn-bg);
+}
+
+.kn-context-header h1 {
+  margin-bottom: var(--kn-space-1);
+}
+
+.kn-context-header__sub {
+  font-size: var(--kn-body-size);
+  color: var(--kn-text-muted);
+  max-width: var(--kn-text-max-width);
+}
+
+/* ——— Main: Workspace + Panel ——— */
+.kn-main {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.kn-workspace {
+  width: var(--kn-workspace-ratio);
+  padding: var(--kn-space-4);
+  overflow-y: auto;
+}
+
+.kn-panel {
+  width: var(--kn-panel-ratio);
+  padding: var(--kn-space-3);
+  border-left: 1px solid var(--kn-border);
+  background-color: var(--kn-bg);
+  overflow-y: auto;
+}
+
+.kn-panel__title {
+  font-family: var(--kn-font-sans);
+  font-size: var(--kn-caption-size);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--kn-text-muted);
+  margin-bottom: var(--kn-space-2);
+}
+
+.kn-panel__text {
+  font-size: var(--kn-body-size);
+  line-height: var(--kn-line-height-body);
+  color: var(--kn-text);
+  margin-bottom: var(--kn-space-3);
+  max-width: 100%;
+}
+
+.kn-prompt-box {
+  font-family: var(--kn-font-sans);
+  font-size: var(--kn-caption-size);
+  line-height: 1.5;
+  padding: var(--kn-space-2);
+  background-color: var(--kn-bg);
+  border: 1px solid var(--kn-border);
+  border-radius: var(--kn-radius);
+  color: var(--kn-text);
+  margin-bottom: var(--kn-space-2);
+  resize: vertical;
+  min-height: 80px;
+  width: 100%;
+}
+
+.kn-panel__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--kn-space-1);
+  margin-top: var(--kn-space-2);
+}
+
+/* ——— Proof Footer ——— */
+.kn-proof-footer {
+  padding: var(--kn-space-2) var(--kn-space-4);
+  border-top: 1px solid var(--kn-border);
+  background-color: var(--kn-bg);
+  flex-shrink: 0;
+}
+
+.kn-proof-footer__title {
+  font-size: var(--kn-caption-size);
+  font-weight: 600;
+  color: var(--kn-text-muted);
+  margin-bottom: var(--kn-space-2);
+}
+
+.kn-proof-checklist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--kn-space-3);
+}
+
+.kn-proof-item {
+  display: flex;
+  align-items: center;
+  gap: var(--kn-space-1);
+  font-size: var(--kn-body-size);
+  color: var(--kn-text);
+}
