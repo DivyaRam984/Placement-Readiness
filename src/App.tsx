@@ -20,6 +20,15 @@ const Resources = lazy(() =>
 const Profile = lazy(() =>
   import('@/pages').then((m) => ({ default: m.Profile }))
 );
+const Analyze = lazy(() =>
+  import('@/pages').then((m) => ({ default: m.Analyze }))
+);
+const Results = lazy(() =>
+  import('@/pages').then((m) => ({ default: m.Results }))
+);
+const History = lazy(() =>
+  import('@/pages').then((m) => ({ default: m.History }))
+);
 
 function PageFallback() {
   return (
@@ -41,6 +50,9 @@ export function App() {
             <Route path="assessments" element={<Assessments />} />
             <Route path="resources" element={<Resources />} />
             <Route path="profile" element={<Profile />} />
+            <Route path="analyze" element={<Analyze />} />
+            <Route path="results" element={<Results />} />
+            <Route path="history" element={<History />} />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

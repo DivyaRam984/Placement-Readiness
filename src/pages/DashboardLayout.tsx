@@ -5,6 +5,9 @@ import {
   ClipboardList,
   BookOpen,
   User,
+  FileSearch,
+  FileText,
+  History,
 } from 'lucide-react';
 
 const navItems = [
@@ -12,6 +15,9 @@ const navItems = [
   { to: '/dashboard/practice', label: 'Practice', icon: Code2 },
   { to: '/dashboard/assessments', label: 'Assessments', icon: ClipboardList },
   { to: '/dashboard/resources', label: 'Resources', icon: BookOpen },
+  { to: '/dashboard/analyze', label: 'Analyze', icon: FileSearch },
+  { to: '/dashboard/results', label: 'Results', icon: FileText },
+  { to: '/dashboard/history', label: 'History', icon: History },
   { to: '/dashboard/profile', label: 'Profile', icon: User },
 ] as const;
 

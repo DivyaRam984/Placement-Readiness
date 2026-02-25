@@ -4,4 +4,7 @@ export { Dashboard } from './Dashboard';
 export { Practice } from './Practice';
 export { Assessments } from './Assessments';
 export { Resources } from './Resources';
+export { Analyze } from './Analyze';
+export { Results } from './Results';
+export { History } from './History';
 export { Profile } from './Profile';
