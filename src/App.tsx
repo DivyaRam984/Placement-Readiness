@@ -29,6 +29,15 @@ const Results = lazy(() =>
 const History = lazy(() =>
   import('@/pages').then((m) => ({ default: m.History }))
 );
+const PrpLayout = lazy(() =>
+  import('@/pages').then((m) => ({ default: m.PrpLayout }))
+);
+const TestChecklist = lazy(() =>
+  import('@/pages').then((m) => ({ default: m.TestChecklist }))
+);
+const Ship = lazy(() =>
+  import('@/pages').then((m) => ({ default: m.Ship }))
+);
 
 function PageFallback() {
   return (
@@ -53,6 +62,10 @@ export function App() {
             <Route path="analyze" element={<Analyze />} />
             <Route path="results" element={<Results />} />
             <Route path="history" element={<History />} />
+          </Route>
+          <Route path="/prp" element={<PrpLayout />}>
+            <Route path="07-test" element={<TestChecklist />} />
+            <Route path="08-ship" element={<Ship />} />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
