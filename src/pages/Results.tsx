@@ -8,6 +8,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { getEntryById, getLatestEntry, updateEntry } from '@/lib/history';
+import { buildCompanyIntel, buildRoundMapping } from '@/lib/companyIntel';
 import type { HistoryEntry, SkillCategory, SkillConfidence } from '@/types/analysis';
 
 function useResultsData(): HistoryEntry | null {
@@ -118,6 +119,20 @@ export function Results() {
     readinessScore: baseScore,
   } = entry;
 
+  const companyIntelDisplay = useMemo(
+    () =>
+      entry.companyIntel ??
+      (company.trim()
+        ? buildCompanyIntel(company, entry.jdText, extractedSkills)
+        : null),
+    [entry.companyIntel, entry.jdText, company, extractedSkills]
+  );
+
+  const roundMappingDisplay = useMemo(
+    () => entry.roundMapping ?? buildRoundMapping(company, extractedSkills),
+    [entry.roundMapping, company, extractedSkills]
+  );
+
   const categoriesToShow: SkillCategory[] =
     extractedSkills.categoriesPresent.length > 0
       ? extractedSkills.categoriesPresent
@@ -196,6 +211,71 @@ export function Results() {
           <div className="flex items-baseline gap-2">
             <span className="text-4xl font-bold text-primary">{liveScore}</span>
             <span className="text-gray-500">/ 100</span>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Company Intel (when company provided) */}
+      {companyIntelDisplay && (
+        <>
+          <Card className="mb-6">
+            <CardHeader>
+              <CardTitle>Company intel</CardTitle>
+              <CardDescription>Heuristic view based on company name and JD</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div>
+                <p className="text-xs font-medium uppercase tracking-wide text-gray-500">Company</p>
+                <p className="text-lg font-semibold text-gray-900">{companyIntelDisplay.companyName}</p>
+              </div>
+              <div>
+                <p className="text-xs font-medium uppercase tracking-wide text-gray-500">Industry</p>
+                <p className="text-gray-900">{companyIntelDisplay.industry}</p>
+              </div>
+              <div>
+                <p className="text-xs font-medium uppercase tracking-wide text-gray-500">Estimated size</p>
+                <p className="text-gray-900">
+                  {companyIntelDisplay.sizeCategory}
+                  {companyIntelDisplay.sizeCategory === 'Startup' && ' (<200)'}
+                  {companyIntelDisplay.sizeCategory === 'Mid-size' && ' (200–2000)'}
+                  {companyIntelDisplay.sizeCategory === 'Enterprise' && ' (2000+)'}
+                </p>
+              </div>
+              <div>
+                <p className="text-xs font-medium uppercase tracking-wide text-gray-500">Typical hiring focus</p>
+                <p className="text-sm text-gray-700">{companyIntelDisplay.typicalHiringFocus}</p>
+              </div>
+            </CardContent>
+          </Card>
+          <p className="text-xs text-gray-500 mb-6">Demo Mode: Company intel generated heuristically.</p>
+        </>
+      )}
+
+      {/* Round mapping (vertical timeline) */}
+      <Card className="mb-6">
+        <CardHeader>
+          <CardTitle>Round mapping</CardTitle>
+          <CardDescription>Expected flow based on company size and detected skills</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="relative space-y-0">
+            {roundMappingDisplay.map((r, i) => (
+              <div key={r.roundNumber} className="flex gap-4 pb-6 last:pb-0">
+                <div className="flex flex-col items-center">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-primary bg-white text-sm font-semibold text-primary">
+                    {r.roundNumber}
+                  </div>
+                  {i < roundMappingDisplay.length - 1 && (
+                    <div className="mt-1 h-full w-0.5 flex-1 bg-gray-200" />
+                  )}
+                </div>
+                <div className="min-w-0 flex-1 pt-0.5">
+                  <h3 className="font-semibold text-gray-900">{r.title}</h3>
+                  <p className="mt-1 text-sm text-gray-600">{r.description}</p>
+                  <p className="mt-2 text-xs text-gray-500 italic">Why this round matters: {r.whyItMatters}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </CardContent>
       </Card>

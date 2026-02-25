@@ -31,6 +31,8 @@ export function Analyze() {
         plan: output.plan,
         questions: output.questions,
         readinessScore: output.readinessScore,
+        companyIntel: output.companyIntel ?? undefined,
+        roundMapping: output.roundMapping,
       });
       navigate(`/dashboard/results?id=${entry.id}`, { state: { entry } });
     } finally {

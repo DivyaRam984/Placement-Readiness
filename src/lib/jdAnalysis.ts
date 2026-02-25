@@ -1,4 +1,5 @@
 import { SKILL_KEYWORDS, CATEGORY_ORDER } from './skillCategories';
+import { buildCompanyIntel, buildRoundMapping } from './companyIntel';
 import type {
   ExtractedSkills,
   RoundChecklist,
@@ -241,11 +242,16 @@ export function runAnalysis(
     role,
     categoriesForScore
   );
+  const companyIntel = buildCompanyIntel(company, jdText, extractedSkills);
+  const roundMapping = buildRoundMapping(company, extractedSkills);
+
   return {
     extractedSkills,
     checklist: buildChecklist(extractedSkills),
     plan: build7DayPlan(extractedSkills),
     questions: generateQuestions(extractedSkills),
     readinessScore,
+    companyIntel,
+    roundMapping,
   };
 }
