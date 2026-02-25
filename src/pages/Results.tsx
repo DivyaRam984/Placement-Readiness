@@ -41,7 +41,7 @@ function buildFullText(entry: HistoryEntry): string {
   lines.push(`${entry.company || '—'} · ${entry.role || '—'}`);
   lines.push('');
   lines.push('--- Readiness score ---');
-  lines.push(`${entry.readinessScore} / 100`);
+  lines.push(`${entry.finalScore} / 100`);
   lines.push('');
   lines.push('--- Key skills extracted ---');
   const cats = entry.extractedSkills.categoriesPresent.length
@@ -83,7 +83,13 @@ export function Results() {
     (newMap: Record<string, SkillConfidence>) => {
       if (!entry) return;
       setSkillConfidenceMap(newMap);
-      updateEntry(entry.id, { skillConfidenceMap: newMap });
+      const allSkills = entry.extractedSkills.categoriesPresent.length
+        ? entry.extractedSkills.categoriesPresent.flatMap((c) => entry.extractedSkills.byCategory[c] ?? [])
+        : (entry.extractedSkills.byCategory['General'] ?? []);
+      const knowCount = allSkills.filter((s) => newMap[s] === 'know').length;
+      const practiceCount = allSkills.length - knowCount;
+      const finalScore = Math.min(100, Math.max(0, entry.baseScore + 2 * knowCount - 2 * practiceCount));
+      updateEntry(entry.id, { skillConfidenceMap: newMap, finalScore });
     },
     [entry]
   );
@@ -116,7 +122,7 @@ export function Results() {
     checklist,
     plan,
     questions,
-    readinessScore: baseScore,
+    baseScore,
   } = entry;
 
   const companyIntelDisplay = useMemo(
@@ -178,7 +184,7 @@ export function Results() {
   }, [questions]);
 
   const downloadTxt = useCallback(() => {
-    const text = buildFullText({ ...entry, readinessScore: liveScore });
+    const text = buildFullText({ ...entry, finalScore: liveScore });
     const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');

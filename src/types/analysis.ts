@@ -56,6 +56,7 @@ export type SkillConfidence = 'know' | 'practice';
 export interface HistoryEntry {
   id: string;
   createdAt: string;
+  updatedAt: string;
   company: string;
   role: string;
   jdText: string;
@@ -63,11 +64,13 @@ export interface HistoryEntry {
   checklist: RoundChecklist[];
   plan: DayPlanItem[];
   questions: string[];
+  /** From initial analysis; never changed after save. */
+  baseScore: number;
+  /** baseScore + skill confidence adjustments; updated when user toggles skills. */
+  finalScore: number;
+  /** Kept for backward compatibility; equals finalScore. */
   readinessScore: number;
-  /** User self-assessment: per-skill "I know" vs "Need practice". Persisted in history. */
-  skillConfidenceMap?: Record<string, SkillConfidence>;
-  /** Company intel (heuristic). Persisted when company name provided. */
+  skillConfidenceMap: Record<string, SkillConfidence>;
   companyIntel?: CompanyIntel | null;
-  /** Round mapping (dynamic from company size + skills). Persisted in history. */
-  roundMapping?: RoundMapping;
+  roundMapping: RoundMapping;
 }

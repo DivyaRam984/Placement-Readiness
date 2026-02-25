@@ -21,11 +21,16 @@ function formatDate(iso: string): string {
 
 export function History() {
   const navigate = useNavigate();
-  const entries = getEntries();
+  const { entries, skippedCount } = getEntries();
 
   return (
     <div>
       <h2 className="text-2xl font-semibold text-gray-900 mb-6">Analysis history</h2>
+      {skippedCount > 0 && (
+        <p className="mb-4 text-sm text-amber-700">
+          One saved entry couldn&apos;t be loaded. Create a new analysis.
+        </p>
+      )}
       <Card>
         <CardHeader>
           <CardTitle>Saved analyses</CardTitle>
@@ -55,7 +60,7 @@ export function History() {
                     </span>
                     <span className="text-gray-500">{formatDate(e.createdAt)}</span>
                   </div>
-                  <span className="text-sm font-medium text-primary">{e.readinessScore}/100</span>
+                  <span className="text-sm font-medium text-primary">{e.finalScore}/100</span>
                 </li>
               ))}
             </ul>

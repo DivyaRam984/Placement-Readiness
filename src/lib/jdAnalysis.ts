@@ -47,7 +47,7 @@ export function extractSkills(jdText: string): ExtractedSkills {
   );
 
   if (categoriesPresent.length === 0) {
-    byCategory.General = ['General fresher stack'];
+    byCategory.General = ['Communication', 'Problem solving', 'Basic coding', 'Projects'];
     return { byCategory, categoriesPresent: ['General'] };
   }
 
