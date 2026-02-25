@@ -46,36 +46,38 @@ function OverallReadiness() {
         <CardDescription>Your current placement readiness score</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col items-center justify-center pb-2">
-        <div className="relative inline-flex items-center justify-center">
-          <svg className="h-40 w-40 -rotate-90" viewBox="0 0 160 160" aria-hidden>
-            <circle
-              cx="80"
-              cy="80"
-              r={radius}
-              fill="none"
-              stroke="rgb(229, 231, 235)"
-              strokeWidth="12"
-            />
-            <circle
-              cx="80"
-              cy="80"
-              r={radius}
-              fill="none"
-              stroke="hsl(245, 58%, 51%)"
-              strokeWidth="12"
-              strokeLinecap="round"
-              strokeDasharray={circumference}
-              strokeDashoffset={strokeDashoffset}
-              style={{
-                transition: 'stroke-dashoffset 0.6s ease-in-out',
-              }}
-            />
-          </svg>
-          <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className="text-4xl font-bold text-gray-900">{score}</span>
-            <span className="text-lg text-gray-500">/ {max}</span>
-            <span className="mt-1 text-sm font-medium text-gray-500">Readiness Score</span>
+        <div className="flex flex-col items-center gap-4">
+          <div className="relative inline-flex items-center justify-center">
+            <svg className="h-40 w-40 -rotate-90" viewBox="0 0 160 160" aria-hidden>
+              <circle
+                cx="80"
+                cy="80"
+                r={radius}
+                fill="none"
+                stroke="rgb(229, 231, 235)"
+                strokeWidth="12"
+              />
+              <circle
+                cx="80"
+                cy="80"
+                r={radius}
+                fill="none"
+                stroke="hsl(245, 58%, 51%)"
+                strokeWidth="12"
+                strokeLinecap="round"
+                strokeDasharray={circumference}
+                strokeDashoffset={strokeDashoffset}
+                style={{
+                  transition: 'stroke-dashoffset 0.6s ease-in-out',
+                }}
+              />
+            </svg>
+            <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+              <span className="text-4xl font-bold text-gray-900">{score}</span>
+              <span className="text-lg text-gray-500">/ {max}</span>
+            </div>
           </div>
+          <p className="text-base font-semibold text-gray-900">Readiness Score</p>
         </div>
       </CardContent>
     </Card>
@@ -90,15 +92,35 @@ function SkillBreakdown() {
         <CardDescription>Scores across key areas</CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="h-64 w-full">
+        <div className="h-72 w-full min-h-[280px]">
           <ResponsiveContainer width="100%" height="100%">
-            <RechartsRadarChart data={SKILL_DATA} cx="50%" cy="50%" outerRadius="70%">
+            <RechartsRadarChart
+              data={SKILL_DATA}
+              cx="50%"
+              cy="50%"
+              outerRadius="65%"
+              margin={{ top: 24, right: 24, bottom: 24, left: 24 }}
+            >
               <PolarGrid stroke="rgb(229, 231, 235)" />
               <PolarAngleAxis
                 dataKey="subject"
-                tick={{ fill: 'rgb(75, 85, 99)', fontSize: 12 }}
+                tick={{
+                  fill: 'rgb(31, 41, 55)',
+                  fontSize: 14,
+                  fontWeight: 500,
+                }}
+                tickLine={false}
               />
-              <PolarRadiusAxis angle={90} domain={[0, 100]} tick={{ fill: 'rgb(156, 163, 175)' }} />
+              <PolarRadiusAxis
+                angle={90}
+                domain={[0, 100]}
+                tick={{
+                  fill: 'rgb(107, 114, 128)',
+                  fontSize: 13,
+                  fontWeight: 500,
+                }}
+                orientation="middle"
+              />
               <Radar
                 name="Score"
                 dataKey="value"
