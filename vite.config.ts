@@ -7,4 +7,15 @@ export default defineConfig({
   resolve: {
     alias: { '@': path.resolve(__dirname, './src') },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: (id) => {
+          if (id.includes('recharts')) return 'recharts';
+          if (id.includes('node_modules')) return 'vendor';
+        },
+      },
+    },
+    chunkSizeWarningLimit: 600,
+  },
 });
