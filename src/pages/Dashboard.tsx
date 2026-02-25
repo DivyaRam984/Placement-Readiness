@@ -32,9 +32,12 @@ const ASSESSMENTS = [
   { title: 'HR Interview Prep', when: 'Friday, 11:00 AM' },
 ];
 
+const READINESS_MAX = 100;
+
 function OverallReadiness() {
-  const score = 72;
-  const max = 100;
+  const rawScore = 72; // Try 120 to verify it clamps to 100
+  const max = READINESS_MAX;
+  const score = Math.min(rawScore, max);
   const radius = 64;
   const circumference = 2 * Math.PI * radius;
   const strokeDashoffset = circumference - (score / max) * circumference;
@@ -74,7 +77,7 @@ function OverallReadiness() {
             </svg>
             <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
               <span className="text-4xl font-bold text-gray-900">{score}</span>
-              <span className="text-lg text-gray-500">/ {max}</span>
+              <span className="text-lg text-gray-500">/ {READINESS_MAX}</span>
             </div>
           </div>
           <p className="text-base font-semibold text-gray-900">Readiness Score</p>
