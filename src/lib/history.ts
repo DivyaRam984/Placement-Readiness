@@ -45,3 +45,14 @@ export function getLatestEntry(): HistoryEntry | null {
   const entries = readEntries();
   return entries.length > 0 ? entries[0] : null;
 }
+
+export function updateEntry(
+  id: string,
+  updates: Partial<Pick<HistoryEntry, 'skillConfidenceMap'>>
+): void {
+  const entries = readEntries();
+  const index = entries.findIndex((e) => e.id === id);
+  if (index === -1) return;
+  entries[index] = { ...entries[index], ...updates };
+  writeEntries(entries);
+}

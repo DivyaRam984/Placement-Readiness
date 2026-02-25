@@ -31,6 +31,8 @@ export interface AnalysisOutput {
   readinessScore: number;
 }
 
+export type SkillConfidence = 'know' | 'practice';
+
 export interface HistoryEntry {
   id: string;
   createdAt: string;
@@ -42,4 +44,6 @@ export interface HistoryEntry {
   plan: DayPlanItem[];
   questions: string[];
   readinessScore: number;
+  /** User self-assessment: per-skill "I know" vs "Need practice". Persisted in history. */
+  skillConfidenceMap?: Record<string, SkillConfidence>;
 }
